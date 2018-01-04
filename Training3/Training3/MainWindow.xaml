@@ -1,0 +1,57 @@
+﻿<Window x:Class="Training3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Training3"
+        mc:Ignorable="d"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        Title="Training3 by Sascha Böck" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="105*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="240*"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="Start Generating" Command="{Binding StartBtnClick}" Grid.Column="3" HorizontalAlignment="Left" Margin="5"/>
+        <Button Content="Stop Generating" Command="{Binding StopBtnClick}" Grid.Column="3" HorizontalAlignment="Right" Margin="5"/>
+        <Button Content=">>" Command="{Binding SelectBtnClick}" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="5" Height="30"/>
+
+        <Label Content="Waiting for:" Grid.Row="1"/>
+        <DataGrid Grid.Row="1" Margin="5,0,4.6,4.8" VerticalAlignment="Bottom" Height="210" AutoGenerateColumns="False" ItemsSource="{Binding Cargo}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Destination, Mode=OneWay}" Header="Dest." Width="60*" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Binding="{Binding Deliverytime, Mode=OneWay}" Header="Time" Width="40*" ClipboardContentBinding="{x:Null}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Label Content="Ready:" Grid.Row="1" Grid.Column="1"/>
+        <DataGrid Grid.Row="1" Grid.Column="1" Margin="5,0,4.6,4.8" VerticalAlignment="Bottom" Height="210" AutoGenerateColumns="False" ItemsSource="{Binding Arrived}" SelectedItem="{Binding SelectedCargo}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Destination, Mode=OneWay}" Header="Dest." Width="60*" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Binding="{Binding Items.Count, Mode=OneWay}" Header="#Itms" Width="40*" ClipboardContentBinding="{x:Null}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Label Content="Details:" Grid.Row="1" Grid.Column="3"/>
+        <DataGrid Grid.Row="1" Grid.Column="4" Margin="5,0,4.6,4.8" VerticalAlignment="Bottom" Height="210" AutoGenerateColumns="False" ItemsSource="{Binding SelectedCargo.Items}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding name}" Width="40*" ClipboardContentBinding="{x:Null}" Header="Item"/>
+                <DataGridTextColumn Binding="{Binding weight}" Width="25*" ClipboardContentBinding="{x:Null}" Header="Weight"/>
+                <DataGridTextColumn Binding="{Binding amount}" Width="25*" ClipboardContentBinding="{x:Null}" Header="Amount"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Clear" Command="{Binding ClearBtnClick}" Grid.Row="2" Grid.ColumnSpan="34" Margin="5"/>
+
+    </Grid>
+</Window>

@@ -14,7 +14,7 @@ namespace Training3.Model
         public string name { get; set; }
         public int amount { get; set; }
         public float weight { get; set; }
-        Random rnd = new Random();
+        static Random rnd = new Random();
 
         public CargoItem()
         {

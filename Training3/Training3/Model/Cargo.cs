@@ -13,7 +13,7 @@ namespace Training3.Model
         public string Destination { get; set; }
         public int Deliverytime { get; set; }
         public int Capacity { get; set; }
-        Random rnd = new Random();
+        static Random rnd = new Random();
 
         public Cargo()
         {
@@ -29,7 +29,6 @@ namespace Training3.Model
             for (int i = 0; i <= number; i++)
             {
                 this.Items.Add(new CargoItem());
-                Thread.Sleep(200);
             }
         }
     }

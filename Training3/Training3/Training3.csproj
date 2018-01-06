@@ -69,10 +69,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Cargo.cs" />
+    <Compile Include="ViewModel\CargoVM.cs" />
     <Compile Include="Model\CargoGenerator.cs" />
     <Compile Include="Model\CargoItem.cs" />
-    <Compile Include="ViewModel\CargoVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">

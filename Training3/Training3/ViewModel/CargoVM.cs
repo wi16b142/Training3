@@ -1,59 +1,46 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Timers;
-using System.Threading.Tasks;
-using Training3.Model;
 
-namespace Training3.ViewModel
+namespace Training3.Model
 {
     public class CargoVM:ViewModelBase
     {
-        Cargo cargo;
+        string[] destinations = new String[] { "Vienna", "Prague", "Berlin", "London", "Paris" };
+
+        public ObservableCollection<CargoItem> Items { get; set; }
+
+        public string Destination { get; set; }
+        public int Deliverytime { get; set; }
+        public int Capacity { get; set; }
+        static Random rnd = new Random();
         Action<CargoVM> arrived;
         Timer timer;
 
         public CargoVM(Action<CargoVM> arrived)
         {
-            cargo = new Cargo();
-            Items = new ObservableCollection<CargoItem>();
+            this.Items = new ObservableCollection<CargoItem>();
+            this.Capacity = rnd.Next(1, 9);
+            CreateItems(this.Capacity);
+            this.Destination = destinations[rnd.Next(0, 4)];
+            this.Deliverytime = rnd.Next(3, 10);
             this.arrived = arrived;
-            CopyItems();
             SimulateDelivery();
         }
 
-        public CargoVM(CargoVM cargoVM)
+        private void CreateItems(int number)
         {
-            this.cargo = cargoVM.cargo;
-        }
-
-        public String Destination
-        {
-            get => cargo.Destination;
-        }
-
-        public int Deliverytime
-        {
-            get => cargo.Deliverytime;
-        }
-        
-        public ObservableCollection<CargoItem> Items { get; set; }
-
-        private void CopyItems()
-        {
-            foreach(var item in cargo.Items)
+            for (int i = 0; i <= number; i++)
             {
-                Items.Add(item);
+                this.Items.Add(new CargoItem());
             }
         }
 
         private void SimulateDelivery()
         {
             timer = new Timer();
-            timer.Interval = this.cargo.Deliverytime * 1000;
+            timer.Interval = this.Deliverytime * 1000;
             timer.Elapsed += TimerElapsedEvent;
             timer.AutoReset = false;
             timer.Enabled = true;
